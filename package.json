@@ -3,22 +3,22 @@
   "license": "MIT",
   "prettierGlob": "**/*.{js,ts,ym,md}",
   "scripts": {
-    "start": "love game --console",
+    "start": "love build --console",
     "build": "yarn build:tstl && yarn build:copy",
     "lint": "yarn lint:prettier && yarn lint:eslint",
     "docs": "./node_modules/love-typescript-definitions/docs/index.html",
     "build:tstl": "tstl -p tsconfig.json",
-    "build:copy": "copyfiles res/* game",
+    "build:copy": "copyfiles res/**/* build && copyfiles lib/**/* build",
     "build:watch": "tstl -w -p tsconfig.json",
     "lint:eslint": "eslint -c .eslintrc src/**",
     "lint:prettier": "cross-var prettier \"$npm_package_prettierGlob\" --check",
     "fix:prettier": "cross-var prettier \"$npm_package_prettierGlob\" --check --write"
   },
   "prettier": {
-    "printWidth": 120,
-    "tabWidth": 4,
-    "arrowParens": "avoid",
-    "trailingComma": "es5",
+    "printWidth": 100,
+    "tabWidth": 2,
+    "arrowParens": "always",
+    "trailingComma": "all",
     "endOfLine": "auto"
   },
   "importSort": {
