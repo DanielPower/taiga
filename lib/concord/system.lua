@@ -170,6 +170,13 @@ function System:getName()
    return self.__name
 end
 
+--- Returns the requested Pool.
+-- @tparam string name
+-- @treturn Pool
+function System:getEntities(name)
+  return self[name]
+end
+
 --- Callbacks
 -- @section Callbacks
 

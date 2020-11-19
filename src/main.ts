@@ -1,4 +1,4 @@
-const Concord = require("lib.concord");
+import * as Concord from "lib.concord";
 
 Concord.component("position", (c: any, x: number, y: number) => {
   c.x = x || 0;
@@ -10,14 +10,14 @@ Concord.component("velocity", (c: any, x: number, y: number) => {
   c.y = y || 0;
 });
 
-const Drawable = Concord.component("drawable");
+Concord.component("drawable");
 
 const MoveSystem = Concord.system({
   pool: ["position", "velocity"],
 });
 
-MoveSystem.update = (self: any, dt: number) => {
-  self.pool.forEach((entity: any) => {
+MoveSystem.update = function (dt: number) {
+  this.getEntities("pool").forEach((entity: any) => {
     entity.position.x += entity.velocity.x * dt;
     entity.position.y += entity.velocity.y * dt;
   });
@@ -27,32 +27,24 @@ const DrawSystem = Concord.system({
   pool: ["position", "drawable"],
 });
 
-DrawSystem.draw = (self: any) => {
-  self.pool.forEach((entity: any) => {
+DrawSystem.draw = function () {
+  this.getEntities("pool").forEach((entity: any) => {
     love.graphics.circle("fill", entity.position.x, entity.position.y, 5);
   });
 };
 
 const world = Concord.world();
 
-world.addSystems(world, MoveSystem, DrawSystem);
+world.addSystems(MoveSystem, DrawSystem);
 
-const entity_1 = Concord.entity(world);
-entity_1
-  .give(entity_1, "position", 100, 100)
-  .give(entity_1, "velocity", 100, 0)
-  .give(entity_1, "drawable");
-
-const entity_2 = Concord.entity(world);
-entity_2.give(entity_2, "position", 50, 50).give(entity_2, "drawable");
-
-const entity_3 = Concord.entity(world);
-entity_3.give(entity_3, "position", 200, 200);
+Concord.entity(world).give("position", 100, 100).give("velocity", 100, 0).give("drawable");
+Concord.entity(world).give("position", 50, 50).give("drawable");
+Concord.entity(world).give("position", 200, 200);
 
 love.update = (dt) => {
-  world.emit(world, "update", dt);
+  world.emit("update", dt);
 };
 
 love.draw = () => {
-  world.emit(world, "draw");
+  world.emit("draw");
 };
