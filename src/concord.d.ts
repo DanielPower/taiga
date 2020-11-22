@@ -44,7 +44,6 @@ interface ConcordComponent {
 
 interface ConcordSystem {
   (this: void, filters: { [key: string]: Array<string> }): ConcordSystem;
-  [key: string]: (this: ConcordSystem, ...args: any) => void;
   setEnabled(enable: boolean): ConcordSystem;
   isEnabled(): boolean;
   getWorld(): ConcordWorld;
@@ -53,7 +52,6 @@ interface ConcordSystem {
   init(world: ConcordWorld): void;
   onEnabled(): void;
   onDisabled(): void;
-  getEntities(name: string): ConcordEntity[];
 }
 
 interface ConcordUtils {

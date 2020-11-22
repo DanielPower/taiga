@@ -12,23 +12,33 @@ Concord.component("velocity", (c: any, x: number, y: number) => {
 
 Concord.component("drawable");
 
-const MoveSystem = Concord.system({
+interface MoveSystem extends ConcordSystem {
+  pool?: ConcordEntity[];
+  update?: (this: MoveSystem, dt: number) => void;
+}
+
+const MoveSystem: MoveSystem = Concord.system({
   pool: ["position", "velocity"],
 });
 
 MoveSystem.update = function (dt: number) {
-  this.getEntities("pool").forEach((entity: any) => {
+  this.pool.forEach((entity: any) => {
     entity.position.x += entity.velocity.x * dt;
     entity.position.y += entity.velocity.y * dt;
   });
 };
 
-const DrawSystem = Concord.system({
+interface DrawSystem extends ConcordSystem {
+  pool?: ConcordEntity[];
+  draw?: (this: DrawSystem) => void;
+}
+
+const DrawSystem: DrawSystem = Concord.system({
   pool: ["position", "drawable"],
 });
 
 DrawSystem.draw = function () {
-  this.getEntities("pool").forEach((entity: any) => {
+  this.pool.forEach((entity: any) => {
     love.graphics.circle("fill", entity.position.x, entity.position.y, 5);
   });
 };
