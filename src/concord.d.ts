@@ -59,7 +59,7 @@ interface ConcordUtils {
   loadNamespace(pathOrFiles: string | string[], namespace: {}): {};
 }
 
-declare module "lib.concord" {
+declare module "*lib/concord" {
   export const component: ConcordComponent;
   export const system: ConcordSystem;
   export const world: ConcordWorld;
