@@ -1,6 +1,3 @@
-import "../components/drawable";
-import "../components/position";
-
 import * as Concord from "../lib/concord";
 
 interface DrawSystem extends ConcordSystem {

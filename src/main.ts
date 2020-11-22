@@ -1,6 +1,7 @@
+import "./components/index";
+
 import * as Concord from "./lib/concord";
-import DrawSystem from "./systems/draw";
-import MoveSystem from "./systems/move";
+import { DrawSystem, MoveSystem } from "./systems/index";
 
 const world = Concord.world();
 

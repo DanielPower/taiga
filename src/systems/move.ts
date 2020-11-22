@@ -1,6 +1,3 @@
-import "../components/position";
-import "../components/velocity";
-
 import * as Concord from "../lib/concord";
 
 interface MoveSystem extends ConcordSystem {
