@@ -3,7 +3,7 @@ interface ConcordEntity {
   give(name: string, ...args: any): ConcordEntity;
   ensure(name: string): ConcordEntity;
   remove(name: string): ConcordEntity;
-  assemble(assemblage: Function): ConcordEntity;
+  assemble(assemblage: Function, ...args: any[]): ConcordEntity;
   destroy(): ConcordEntity;
   has(name: string): boolean;
   get(name: string): ConcordComponent;

@@ -1,8 +1,13 @@
 import * as Concord from "../lib/concord";
 
-const Position = Concord.component("position", (c: any, x: number, y: number) => {
-  c.x = x || 0;
-  c.y = y || 0;
+interface Position {
+  x: number;
+  y: number;
+}
+
+const Position = Concord.component("position", (component: Position, x: number, y: number) => {
+  component.x = x || 0;
+  component.y = y || 0;
 });
 
 export default Position;
