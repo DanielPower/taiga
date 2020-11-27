@@ -1,3 +1,4 @@
+export { default as Bounce } from "./bounce";
 export { default as Circle } from "./circle";
 export { default as CollisionBox } from "./collisionBox";
 export { default as Position } from "./position";
