@@ -26,17 +26,13 @@ const BounceSystem: BounceSystem = Concord.system({
 
 BounceSystem.update = function (_dt: number) {
   this.bouncers.forEach((bouncer: Bouncer) => {
-    if (
-      bouncer.position.x - bouncer.collisionBox.width / 2 < 0 ||
-      bouncer.position.x + bouncer.collisionBox.width / 2 > love.graphics.getWidth()
-    ) {
-      bouncer.velocity.x *= -1;
+    if (bouncer.position.y - bouncer.collisionBox.height / 2 < 0) {
+      bouncer.position.y = bouncer.collisionBox.height / 2;
+      bouncer.velocity.y = Math.abs(bouncer.velocity.y);
     }
-    if (
-      bouncer.position.y - bouncer.collisionBox.height / 2 < 0 ||
-      bouncer.position.y + bouncer.collisionBox.height / 2 > love.graphics.getHeight()
-    ) {
-      bouncer.velocity.y *= -1;
+    if (bouncer.position.y + bouncer.collisionBox.height / 2 > love.graphics.getHeight()) {
+      bouncer.position.y = love.graphics.getHeight() - bouncer.collisionBox.height / 2;
+      bouncer.velocity.y = -Math.abs(bouncer.velocity.y);
     }
     this.collidables.forEach((collidable: Collidable) => {
       if (collidable === bouncer) {
@@ -50,7 +46,15 @@ BounceSystem.update = function (_dt: number) {
           collidable.collisionBox,
         )
       ) {
-        print("BOUNCE");
+        if (bouncer.velocity.x > 0) {
+          bouncer.position.x =
+            collidable.position.x -
+            (bouncer.collisionBox.width + collidable.collisionBox.width) / 2;
+        } else {
+          bouncer.position.x =
+            collidable.position.x +
+            (bouncer.collisionBox.width + collidable.collisionBox.width) / 2;
+        }
         bouncer.velocity.x *= -1;
       }
     });
